@@ -53,7 +53,8 @@ export default class RoomJoinPage extends Component {
         };
         fetch("/api/create-room",requestOptions)
             .then((response) => response.json())
-            .then((data) => console.log(data));
+            //.then((data) => console.log(data));
+            .then((data) => this.props.history.push('/room/' + data.code));
     }
 
     render(){
