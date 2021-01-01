@@ -14,6 +14,7 @@ import { BrowserRouter as Router, Switch, Route, Link,Redirect } from "react-rou
          this.state = {
              roomCode: null,
          };
+         this.clearRoomCode = this.clearRoomCode.bind(this);
      }
 
      async componentDidMount(){ //means the component just did mount for the first time on the screen(its a life cycle method)
@@ -50,17 +51,37 @@ import { BrowserRouter as Router, Switch, Route, Link,Redirect } from "react-rou
 
      }
 
+     clearRoomCode(){
+         this.setState({
+             roomCode:null,
+         });
+     }
+
      render(){
          return (
              <Router>
-                 <switch>
-                     <Route exact path="/">{this.renderHomePage()}</Route>
-                     <Route exact path="/" render={() =>{return this.state.roomCode ? 
+                 <Switch>
+                     {/* <Route exact path="/">{this.renderHomePage()}</Route> */}
+                     {/* <Route exact path="/" render={() =>{return this.state.roomCode ? 
+                        (<Redirect to={`/room/${this.state.roomCode}`} />):(this.renderHomePage())} }/> */}
+
+                    <Route exact path="/" 
+                        render={() =>{return this.state.roomCode ? 
                         (<Redirect to={`/room/${this.state.roomCode}`} />):(this.renderHomePage())} }/>
+
                      <Route path='/join' component={RoomJoinPage} />
                      <Route path='/create' component={CreateRoomPage} />
-                     <Route path='/room/:roomCode' component={Room} />
-                 </switch>
+                     {/* <Route path='/room/:roomCode' component={Room} /> */}
+                     <Route 
+                        path='/room/:roomCode'
+                        render={(props) => {
+                            return <Room {...props} leaveRoomCallback={this.clearRoomCode}/>
+                            {/*... are called spread operators  */} 
+                        } } 
+
+                     />
+
+                 </Switch>
              </Router>
 
          );
