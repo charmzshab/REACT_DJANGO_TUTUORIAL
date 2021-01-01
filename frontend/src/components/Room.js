@@ -30,7 +30,7 @@ export default class Room extends Component{
             <div>
                 <h3>{this.roomCode}</h3>
                 <p>Votes:{this.state.votesToSkip}</p>
-                <p>Guest:{this.state.guestCanPause.toString()}</p>
+                <p>Guest Can Pause:{this.state.guestCanPause.toString()}</p>
                 <p>Host:{this.state.isHost.toString()}</p>
             </div>
         );
